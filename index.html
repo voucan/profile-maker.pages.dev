@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Profile Maker">
+    <meta property="og:description" content="Make a profile with ___!">
+    <meta property="og:image" content="https://i.ibb.co/1RfL4pB/guest.png">
+    <title>Profile Maker</title>
+    <link rel="icon" href="https://i.ibb.co/1RfL4pB/guest.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+            font-family: 'Comfortaa', sans-serif;
+        }
+        .form-container {
+            background-color: #1f1e1e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: white;
+            width: 300px;
+            text-align: center;
+        }
+        .form-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        .form-group input[type="text"]:focus {
+            outline: none;
+            border: 2px solid #555;
+        }
+        .preview-image {
+            margin: 10px 0;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        .generate-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #1c1c1c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .generate-btn:hover {
+            background-color: #292929;
+        }
+        audio {
+            margin-top: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1>Customize Your Profile</h1>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username">
+    </div>
+    <div class="form-group">
+        <label for="bio">Bio</label>
+        <input type="text" id="bio" placeholder="Basic information about you">
+    </div>
+    <div class="form-group">
+        <label for="profileImage">Profile Image URL</label>
+        <input type="text" id="profileImage" placeholder="Enter image URL">
+    </div>
+    <div class="form-group">
+        <label for="music">MP3 Link</label>
+        <input type="text" id="music" placeholder="Enter MP3 link">
+    </div>
+    <button class="generate-btn" onclick="generateProfile()">Generate Profile</button>
+</div>
+
+<script>
+    function generateProfile() {
+        const username = encodeURIComponent(document.getElementById('username').value.trim());
+        const bio = encodeURIComponent(document.getElementById('bio').value.trim());
+        const profileImageLink = document.getElementById('profileImage').value.trim();
+        const musicLink = document.getElementById('music').value.trim();
+
+        if (!username || !bio || !profileImageLink || !musicLink) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        const profileURL = `profile?username=${username}&bio=${bio}&profileImage=${encodeURIComponent(profileImageLink)}&music=${encodeURIComponent(musicLink)}`;
+
+        window.location.href = profileURL;
+    }
+</script>
+
+</body>
+</html>

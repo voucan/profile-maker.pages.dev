@@ -97,8 +97,8 @@
         <input type="text" id="music" placeholder="Enter MP3 URL (optional)">
     </div>
     <div class="form-group">
-        <label for="backgroundGif">Background GIF URL (Optional)</label>
-        <input type="text" id="backgroundGif" placeholder="Enter background GIF URL (optional)">
+        <label for="background">Background URL (Optional)</label>
+        <input type="text" id="background" placeholder="Enter background URL (optional)">
     </div>
     <button class="generate-btn" onclick="generateProfile()">Generate Profile</button>
 </div>
@@ -109,14 +109,14 @@
         const bio = encodeURIComponent(document.getElementById('bio').value.trim());
         const profileImageLink = encodeURIComponent(document.getElementById('profileImage').value.trim());
         const musicLink = encodeURIComponent(document.getElementById('music').value.trim());
-        const backgroundGifLink = encodeURIComponent(document.getElementById('backgroundGif').value.trim());
+        const backgroundLink = encodeURIComponent(document.getElementById('background').value.trim());
 
         if (!username || !bio || !profileImageLink) {
             alert("Please fill in the required fields: Username, Bio, and Profile Image URL.");
             return;
         }
 
-        const profileURL = `profile?username=${username}&bio=${bio}&profileImage=${profileImageLink}&music=${musicLink}&backgroundGif=${backgroundGifLink}`;
+        const profileURL = `profile?username=${username}&bio=${bio}&profileImage=${profileImageLink}&music=${musicLink}&background=${backgroundLink}`;
 
         window.location.href = profileURL;
     }

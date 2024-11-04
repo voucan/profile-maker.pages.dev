@@ -106,7 +106,7 @@
         const bio = urlParams.get('bio') || 'This is a default bio.';
         const profileImage = urlParams.get('profileImage') || 'https://via.placeholder.com/120';
         const audioSrc = urlParams.get('music') || '';
-        const backgroundGif = urlParams.get('backgroundGif') || 'https://voucan.github.io/profile-maker/background.gif';
+        const background = urlParams.get('background') || '';
         const cardBackground = urlParams.get('cardBackground') || '#1f1e1e';
 
         document.title = `${username} - Profile`;
@@ -118,7 +118,7 @@
         document.getElementById('username').textContent = username;
         document.getElementById('bio').textContent = bio;
         document.getElementById('profileImage').src = profileImage;
-        document.body.style.backgroundImage = `url('${backgroundGif}')`;
+        document.body.style.backgroundImage = `url('${background}')`;
         document.querySelector('.container').style.backgroundColor = cardBackground;
 
         const canvas = document.getElementById('visualizerCanvas');

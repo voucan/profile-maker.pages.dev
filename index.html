@@ -93,8 +93,12 @@
         <input type="text" id="profileImage" placeholder="Enter image URL">
     </div>
     <div class="form-group">
-        <label for="music">MP3 Link</label>
-        <input type="text" id="music" placeholder="Enter MP3 URL">
+        <label for="music">MP3 Link (Optional)</label>
+        <input type="text" id="music" placeholder="Enter MP3 URL (optional)">
+    </div>
+    <div class="form-group">
+        <label for="backgroundGif">Background GIF URL (Optional)</label>
+        <input type="text" id="backgroundGif" placeholder="Enter background GIF URL (optional)">
     </div>
     <button class="generate-btn" onclick="generateProfile()">Generate Profile</button>
 </div>
@@ -103,15 +107,16 @@
     function generateProfile() {
         const username = encodeURIComponent(document.getElementById('username').value.trim());
         const bio = encodeURIComponent(document.getElementById('bio').value.trim());
-        const profileImageLink = document.getElementById('profileImage').value.trim();
-        const musicLink = document.getElementById('music').value.trim();
+        const profileImageLink = encodeURIComponent(document.getElementById('profileImage').value.trim());
+        const musicLink = encodeURIComponent(document.getElementById('music').value.trim());
+        const backgroundGifLink = encodeURIComponent(document.getElementById('backgroundGif').value.trim());
 
-        if (!username || !bio || !profileImageLink || !musicLink) {
-            alert("Please fill in all fields.");
+        if (!username || !bio || !profileImageLink) {
+            alert("Please fill in the required fields: Username, Bio, and Profile Image URL.");
             return;
         }
 
-        const profileURL = `profile?username=${username}&bio=${bio}&profileImage=${encodeURIComponent(profileImageLink)}&music=${encodeURIComponent(musicLink)}`;
+        const profileURL = `profile?username=${username}&bio=${bio}&profileImage=${profileImageLink}&music=${musicLink}&backgroundGif=${backgroundGifLink}`;
 
         window.location.href = profileURL;
     }

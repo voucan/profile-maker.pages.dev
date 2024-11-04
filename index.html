@@ -70,10 +70,6 @@
         .generate-btn:hover {
             background-color: #292929;
         }
-        audio {
-            margin-top: 15px;
-            width: 100%;
-        }
     </style>
 </head>
 <body>
@@ -93,12 +89,16 @@
         <input type="text" id="profileImage" placeholder="Enter image URL">
     </div>
     <div class="form-group">
-        <label for="music">MP3 Link (Optional)</label>
-        <input type="text" id="music" placeholder="Enter MP3 URL (optional)">
+        <label for="music">MP3 Link</label>
+        <input type="text" id="music" placeholder="Enter MP3 URL">
     </div>
     <div class="form-group">
-        <label for="background">Background URL (Optional)</label>
-        <input type="text" id="background" placeholder="Enter background URL (optional)">
+        <label for="background">Background URL (optional)</label>
+        <input type="text" id="background" placeholder="Enter background URL">
+    </div>
+    <div class="form-group">
+        <label for="cardBackground">Card Background Color (optional)</label>
+        <input type="text" id="cardBackground" placeholder="Enter card background color (e.g., #1f1e1e)">
     </div>
     <button class="generate-btn" onclick="generateProfile()">Generate Profile</button>
 </div>
@@ -107,16 +107,17 @@
     function generateProfile() {
         const username = encodeURIComponent(document.getElementById('username').value.trim());
         const bio = encodeURIComponent(document.getElementById('bio').value.trim());
-        const profileImageLink = encodeURIComponent(document.getElementById('profileImage').value.trim());
-        const musicLink = encodeURIComponent(document.getElementById('music').value.trim());
-        const backgroundLink = encodeURIComponent(document.getElementById('background').value.trim());
+        const profileImageLink = document.getElementById('profileImage').value.trim();
+        const musicLink = document.getElementById('music').value.trim();
+        const background = document.getElementById('background').value.trim();
+        const cardBackground = document.getElementById('cardBackground').value.trim();
 
         if (!username || !bio || !profileImageLink) {
-            alert("Please fill in the required fields: Username, Bio, and Profile Image URL.");
+            alert("Please fill in all required fields.");
             return;
         }
 
-        const profileURL = `profile?username=${username}&bio=${bio}&profileImage=${profileImageLink}&music=${musicLink}&background=${backgroundLink}`;
+        const profileURL = `profile?username=${username}&bio=${bio}&profileImage=${encodeURIComponent(profileImageLink)}&music=${encodeURIComponent(musicLink)}&background=${encodeURIComponent(background)}&cardBackground=${encodeURIComponent(cardBackground || '#1f1e1e')}`;
 
         window.location.href = profileURL;
     }

@@ -17,6 +17,9 @@
             background-color: black;
             font-family: Arial, sans-serif;
             overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         canvas {
             position: fixed;
@@ -103,6 +106,7 @@
         const bio = urlParams.get('bio') || 'This is a default bio.';
         const profileImage = urlParams.get('profileImage') || 'https://via.placeholder.com/120';
         const audioSrc = urlParams.get('music') || '';
+        const backgroundGif = urlParams.get('backgroundGif') || 'https://voucan.github.io/profile-maker/background.gif';
 
         document.title = `${username} - Profile`;
         document.querySelector('meta[property="og:title"]').content = username;
@@ -113,6 +117,7 @@
         document.getElementById('username').textContent = username;
         document.getElementById('bio').textContent = bio;
         document.getElementById('profileImage').src = profileImage;
+        document.body.style.backgroundImage = `url('${backgroundGif}')`;
 
         const canvas = document.getElementById('visualizerCanvas');
         const audio = document.getElementById('audio');

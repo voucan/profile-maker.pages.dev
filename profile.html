@@ -102,12 +102,12 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username') || 'DefaultUsername';
-        const bio = urlParams.get('bio') || 'This is a default bio.';
-        const profileImage = urlParams.get('profileImage') || 'https://via.placeholder.com/120';
-        const audioSrc = urlParams.get('music') || '';
-        const background = urlParams.get('background') || '';
-        const cardBackground = urlParams.get('cardBackground') || '#1f1e1e';
+        const username = urlParams.get('username') || 'Username'; // Username to set if no parameters are made
+        const bio = urlParams.get('bio') || 'BIO'; // BIO to set if no parameters are made
+        const profileImage = urlParams.get('profileImage') || 'https://via.placeholder.com/120'; // Profile Picture if no parameters are made
+        const audioSrc = urlParams.get('music') || ''; // Proxied Music (None at default)
+        const background = urlParams.get('background') || ''; // Background Image/Gif (None at default)
+        const cardBackground = urlParams.get('cardBackground') || '#1f1e1e'; // Default Card Color
 
         document.title = `${username} - Profile`;
         document.querySelector('meta[property="og:title"]').content = username;

@@ -198,6 +198,20 @@
       document.body.style.backgroundImage = `url('${background}')`;
       document.querySelector('.container').style.backgroundColor = cardBackground;
 
+        async function fetchAudio() {
+            if (audioSrc) {
+                try {
+                    const response = await fetch(audioSrc);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const blob = await response.blob();
+                    const objectUrl = URL.createObjectURL(blob);
+                    audio.src = objectUrl;
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                }
+            }
+        }
+
       function enterSite() {
         document.querySelector('.overlay').classList.add('fade-out');
         document.getElementById('profileContainer').classList.add('show');

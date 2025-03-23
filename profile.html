@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="Profile Card">
@@ -11,185 +12,245 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: black;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      #particles-js {
+        width: 100%;
+        height: 100%;
+        background-position: 50% 50%;
+        position: fixed;
+        top: 0px;
+        z-index: -1;
+      }
+
+      body {
+        background-color: black;
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+        color: #0D0D0D;
+      }
+
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        backdrop-filter: blur(3px);
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 600;
+        z-index: 10;
+        cursor: pointer;
+        transition: opacity 0.5s ease;
+        color: white;
+      }
+
+      .overlay.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /*border: 2px solid rgba(255, 255, 255, 0.3);
+        border-color: white;*/
+        transform: translate(-50%, -50%) scale(0.8);
+        background: rgba(34, 34, 34, 0.5);
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+        width: 80%;
+        max-width: 400px;
+        z-index: 1;
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+
+      .container.show {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+
+      .container img {
+        width: 120px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        border: 5px solid #fff;
+        padding: 3px;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .container img:hover {
+        transform: scale(1.05);
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
+
+        100% {
+          transform: rotate(360deg);
         }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            backdrop-filter: blur(10px);
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Comfortaa', sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            z-index: 10;
-            cursor: pointer;
-            transition: opacity 0.5s ease;
-        }
-        .overlay.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
+      }
+
+      .container img.spin {
+        animation: spin 1s ease-out forwards;
+      }
+
+      .container h1 {
+        font-size: 32px;
+        margin: 15px 0;
+        font-weight: 600;
+        color: #bbb;
+      }
+
+      .bio {
+        margin: 10px 0;
+        font-size: 18px;
+        line-height: 1.6;
+        color: #bbb;
+      }
+
+      .divider {
+        margin: 20px 0;
+        border-bottom: 2px solid #444;
+      }
+
+      .icons a {
+        margin: 0 15px;
+        font-size: 24px;
+        color: #ddd;
+        text-decoration: none;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.35);
+      }
+
+      .icons a:hover {
+        color: #fff;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+      }
+
+      .icons a:active {
+        color: #fff;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+      }
+
+      @media (max-width: 600px) {
         .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #1f1e1e;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            color: white;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-            width: 350px;
-            z-index: 1;
+          width: 90%;
+          padding: 20px;
         }
-        .container img {
-            width: 120px;
-            border-radius: 50%;
-            margin-bottom: 20px;
+
+        .icons a {
+          font-size: 20px;
         }
-        .container h1 {
-            margin: 10px 0;
-        }
-        .bio {
-            margin: 10px 0;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-        .divider {
-            margin: 20px 0;
-            border-bottom: 1px solid #fff;
-        }
+      }
     </style>
-</head>
-<body>
-
-    <div class="overlay" onclick="enterSite()">Click to Enter</div>
-    <div class="container">
-        <img id="profileImage" src="" alt="Profile" onerror="this.onerror=null; this.src='https://via.placeholder.com/120';">
-        <h1 id="username">Username</h1>
-        <div class="bio" id="bio">About Me</div>
+  </head>
+  <body>
+    <div class="overlay" id="enter" onclick="enterSite()">click to enter...</div>
+    <div class="container" id="profileContainer">
+      <img id="profilePicture" src="" alt="Profile" onerror="this.onerror=null; this.src='https://via.placeholder.com/120';">
+      <h1 id="username">Username</h1>
+      <div class="bio" id="bio">About Me</div>
     </div>
-
-    <canvas id="visualizerCanvas"></canvas>
     <audio id="audio" loop>
-        <source id="audioSource" src="" type="audio/mp3">
+      <source id="audioSource" src="" type="audio/mp3">
     </audio>
-
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username') || 'Username'; // Username to set if no parameters are made
-        const bio = urlParams.get('bio') || 'BIO'; // BIO to set if no parameters are made
-        const profileImage = urlParams.get('profileImage') || 'https://via.placeholder.com/120'; // Profile Picture if no parameters are made
-        const audioSrc = urlParams.get('music') || ''; // Proxied Music (None at default)
-        const background = urlParams.get('background') || ''; // Background Image/Gif (None at default)
-        const cardBackground = urlParams.get('cardBackground') || '#1f1e1e'; // Default Card Color
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get('username') || 'DefaultUsername';
+      const bio = urlParams.get('bio') || 'This is a default bio.';
+      const profilePicture = urlParams.get('profilePicture') || 'https://via.placeholder.com/120';
+      const audioSrc = urlParams.get('music') || '';
+      const background = urlParams.get('background') || '';
+      const cardBackground = urlParams.get('cardBackground') || '#1f1e1e';
+      document.title = `@${username}`;
+      document.querySelector('meta[property="og:title"]').content = username;
+      document.querySelector('meta[property="og:description"]').content = `About Me: ${bio}`;
+      document.querySelector('meta[property="og:image"]').content = profilePicture;
+      document.querySelector('link[rel="icon"]').href = profilePicture;
+      document.getElementById('username').textContent = username;
+      document.getElementById('bio').textContent = bio;
+      document.getElementById('profilePicture').src = profilePicture;
+      document.body.style.backgroundImage = `url('${background}')`;
+      document.querySelector('.container').style.backgroundColor = cardBackground;
 
-        document.title = `${username} - Profile`;
-        document.querySelector('meta[property="og:title"]').content = username;
-        document.querySelector('meta[property="og:description"]').content = `About Me: ${bio}`;
-        document.querySelector('meta[property="og:image"]').content = profileImage;
-        document.querySelector('link[rel="icon"]').href = profileImage;
-
-        document.getElementById('username').textContent = username;
-        document.getElementById('bio').textContent = bio;
-        document.getElementById('profileImage').src = profileImage;
-        document.body.style.backgroundImage = `url('${background}')`;
-        document.querySelector('.container').style.backgroundColor = cardBackground;
-
-        const canvas = document.getElementById('visualizerCanvas');
+      function enterSite() {
+        document.querySelector('.overlay').classList.add('fade-out');
+        document.getElementById('profileContainer').classList.add('show');
         const audio = document.getElementById('audio');
-        const ctx = canvas.getContext('2d');
-        let audioContext, analyser, dataArray;
+        audio.play().catch(error => console.log('Audio play failed:', error));
+      }
+      const profilePicture = document.getElementById('profilePicture');
+      const Audio = document.getElementById('audio');
+      const audioContext = new(window.AudioContext || window.webkitAudioContext)();
+      const analyser = audioContext.createAnalyser();
+      const source = audioContext.createMediaElementSource(Audio);
+      source.connect(analyser);
+      analyser.connect(audioContext.destination);
+      analyser.fftSize = 256;
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
 
-        function setupCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+      function updateImageBorder() {
+        analyser.getByteFrequencyData(dataArray);
+        let averageFrequency = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          averageFrequency += dataArray[i];
         }
+        averageFrequency /= bufferLength;
+        let borderSize = 1 + (averageFrequency / 255) * 13;
+        borderSize = Math.min(Math.max(borderSize, 3), 8);
+        profilePicture.style.border = `${borderSize}px solid #fff`;
+        requestAnimationFrame(updateImageBorder);
+      }
+      Audio.onplay = function() {
+        audioContext.resume().then(() => {
+          updateImageBorder();
+        });
+      };
+      let title = `@${username}`;
+      let step = 1;
+      let direction = 1;
 
-        function setupAudio() {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const source = audioContext.createMediaElementSource(audio);
-            analyser = audioContext.createAnalyser();
-            analyser.fftSize = 256;
-            dataArray = new Uint8Array(analyser.frequencyBinCount);
-            source.connect(analyser);
-            analyser.connect(audioContext.destination);
-            animate();
+      function updateTitle() {
+        document.title = title.substring(0, step);
+        if (direction === 1 && step < title.length) {
+          step++;
+        } else if (direction === -1 && step > 1) {
+          step--;
         }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            analyser.getByteFrequencyData(dataArray);
-            const barWidth = (canvas.width / dataArray.length) * 2.5;
-            let barHeight;
-            let x = 0;
-
-            for (let i = 0; i < dataArray.length; i++) {
-                barHeight = dataArray[i] || 2.5;
-                const hue = (i / dataArray.length) * 360;
-                ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
-                ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-                x += barWidth + 1;
-            }
-
-            requestAnimationFrame(animate);
+        if (step === title.length) {
+          direction = -1;
+        } else if (step === 1) {
+          direction = 1;
         }
-
-        async function fetchAudio() {
-            if (audioSrc) {
-                try {
-                    const response = await fetch(audioSrc);
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    const blob = await response.blob();
-                    const objectUrl = URL.createObjectURL(blob);
-                    audio.src = objectUrl;
-                } catch (error) {
-                    console.error('Fetch error:', error);
-                }
-            }
-        }
-
-        function enterSite() {
-            document.querySelector('.overlay').classList.add('fade-out');
-            fetchAudio().then(() => {
-                audio.play().then(() => {
-                    if (!audioContext) {
-                        setupAudio();
-                    }
-                }).catch(error => {
-                    console.log('Audio play failed:', error);
-                });
-            });
-        }
-
-        window.addEventListener('resize', setupCanvas);
-        setupCanvas();
+        setTimeout(updateTitle, 400);
+      }
+      updateTitle();
     </script>
-
-</body>
+  </body>
 </html>

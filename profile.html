@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -72,8 +71,6 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        /*border: 2px solid rgba(255, 255, 255, 0.3);
-        border-color: white;*/
         transform: translate(-50%, -50%) scale(0.8);
         background: rgba(34, 34, 34, 0.5);
         border-radius: 20px;
@@ -198,19 +195,21 @@
       document.body.style.backgroundImage = `url('${background}')`;
       document.querySelector('.container').style.backgroundColor = cardBackground;
 
-        async function fetchAudio() {
-            if (audioSrc) {
-                try {
-                    const response = await fetch(audioSrc);
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    const blob = await response.blob();
-                    const objectUrl = URL.createObjectURL(blob);
-                    audio.src = objectUrl;
-                } catch (error) {
-                    console.error('Fetch error:', error);
-                }
-            }
+      async function fetchAudio() {
+        if (audioSrc) {
+          try {
+            const response = await fetch(audioSrc);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const blob = await response.blob();
+            const objectUrl = URL.createObjectURL(blob);
+            document.getElementById('audioSource').src = objectUrl;
+            const audio = document.getElementById('audio');
+            audio.load();
+          } catch (error) {
+            console.error('Fetch error:', error);
+          }
         }
+      }
 
       function enterSite() {
         document.querySelector('.overlay').classList.add('fade-out');
@@ -218,11 +217,12 @@
         const audio = document.getElementById('audio');
         audio.play().catch(error => console.log('Audio play failed:', error));
       }
+
       const profilePicture = document.getElementById('profilePicture');
-      const Audio = document.getElementById('audio');
+      const audio = document.getElementById('audio');
       const audioContext = new(window.AudioContext || window.webkitAudioContext)();
       const analyser = audioContext.createAnalyser();
-      const source = audioContext.createMediaElementSource(Audio);
+      const source = audioContext.createMediaElementSource(audio);
       source.connect(analyser);
       analyser.connect(audioContext.destination);
       analyser.fftSize = 256;
@@ -241,11 +241,13 @@
         profilePicture.style.border = `${borderSize}px solid #fff`;
         requestAnimationFrame(updateImageBorder);
       }
-      Audio.onplay = function() {
+
+      audio.onplay = function() {
         audioContext.resume().then(() => {
           updateImageBorder();
         });
       };
+
       let title = `@${username}`;
       let step = 1;
       let direction = 1;
@@ -264,7 +266,10 @@
         }
         setTimeout(updateTitle, 400);
       }
+
       updateTitle();
+      
+      fetchAudio();
     </script>
   </body>
 </html>

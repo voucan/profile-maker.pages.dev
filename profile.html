@@ -183,18 +183,18 @@
       const urlParams = new URLSearchParams(window.location.search);
       const username = urlParams.get('username') || 'DefaultUsername';
       const bio = urlParams.get('bio') || 'This is a default bio.';
-      const profilePicture = urlParams.get('profilePicture') || 'https://via.placeholder.com/120';
+      const profileImage = urlParams.get('profileImage') || 'https://via.placeholder.com/120';
       const audioSrc = urlParams.get('music') || '';
       const background = urlParams.get('background') || '';
       const cardBackground = urlParams.get('cardBackground') || '#1f1e1e';
       document.title = `@${username}`;
       document.querySelector('meta[property="og:title"]').content = username;
       document.querySelector('meta[property="og:description"]').content = `About Me: ${bio}`;
-      document.querySelector('meta[property="og:image"]').content = profilePicture;
-      document.querySelector('link[rel="icon"]').href = profilePicture;
+      document.querySelector('meta[property="og:image"]').content = profileImage;
+      document.querySelector('link[rel="icon"]').href = profileImage;
       document.getElementById('username').textContent = username;
       document.getElementById('bio').textContent = bio;
-      document.getElementById('profilePicture').src = profilePicture;
+      document.getElementById('profilePicture').src = profileImage;
       document.body.style.backgroundImage = `url('${background}')`;
       document.querySelector('.container').style.backgroundColor = cardBackground;
 
